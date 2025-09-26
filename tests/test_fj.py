@@ -109,13 +109,11 @@ class FileReader(IFileReader):
 
 def test_fj_write():
     FileJumpApi.set_url("https://eu.filejump.com/api/v1/")
-    #FileJumpApi.set_token("372|wzJ1kjc5SpbHndsW2R678rJTefuUfdAqAv8vpQ2q1206f030")
-    #FileJumpApi.set_token("79|8f7iaYg9LuaSUHiHn6aIWm0Qm2xFBHn3ORGdZ2W2be245f98")
-    file_name = "d:\\archive\\Images\\Dom\\IMG-20240206-WA0022.jpg"
-    relative_name = "./" + "IMG-20240206-WA0022.jpg"
+    file_name = __file__
+    relative_name = __name__
     api = FileJumpApi()
     try:
-        api.login("lev.zlotin67@gmail.com", "17Ak6609#")
+        api.login("user", "password")
         files = api.read_directory_tree()
 
         fr = FileReader(file_name)
