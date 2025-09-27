@@ -25,7 +25,7 @@ import datetime
 from FileJump.FileJumpApi import FileJumpApi
 from FileJump.Exceptions import FJError
 from FileJump.ProgressCallback import IProgressCallback
-from FileJump.FileOperations import IFileReader
+from FileJump.LocalFileReader import LocalFileReader
 
 class PercentCallback(IProgressCallback):
     def __init__(self):
@@ -49,66 +49,10 @@ class PercentCallback(IProgressCallback):
             if percent == 100:
                 print()
 
-class FileReader(IFileReader):
-    def __init__(self, full_name):
-        self.fp = open(full_name , "rb")
-        self.fp.seek(0, os.SEEK_SET)  # Move to the end of the file to get size
-        self._size = os.path.getsize(full_name)
-
-    def read(self, size=-1):
-        """
-        Read the file and return its content.
-        :return: File content as bytes or string.
-        """
-        if size == -1:
-            return self.fp.read()
-            # Read specific size
-        # logger.info("Offset in file: %s: %d from %d", self.file_name, self.fp.tell(), self._size)
-        read_res =  self.fp.read(size)
-
-        return read_res
-
-    def seek(self, pos, whence=0):
-        """
-        Move the file pointer to a specific position.
-        :param pos: Position to move to.
-        :param whence: Reference point for the position (0=beginning, 1=current, 2=end).
-        """
-        self.fp.seek(pos, whence)
-
-    def tell(self):
-        """
-        Return current position
-        :return: Current position in bytes
-        """
-        return self.fp.tell()
-
-    def close(self):
-        """
-        Close the file (optional cleanup)
-        """
-        if self.fp:
-            self.fp.close()
-        self.fp = None
-
-    def __len__(self):
-        """
-        Return the total size of the file.
-        This is required by MultipartEncoder to calculate content length.
-        """
-        return self._size - self.fp.tell()
-
-    def __enter__(self):
-        """Context manager entry"""
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        """Context manager exit - ensures file is closed"""
-        self.close()
 
 
 def test_fj_write():
-    FileJumpApi.set_url("https://eu.filejump.com/api/v1/")
+    FileJumpApi.set_url("filejump_server")
     file_name = __file__
     relative_name = __name__
     api = FileJumpApi()
@@ -116,7 +60,7 @@ def test_fj_write():
         api.login("user", "password")
         files = api.read_directory_tree()
 
-        fr = FileReader(file_name)
+        fr = LocalFileReader(file_name)
         pc = PercentCallback()
         res = api.post_file(file_name, fr, relative_name, pc)
         print(res)

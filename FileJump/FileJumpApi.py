@@ -94,7 +94,7 @@ class FileJumpApi:
         data = response.json()
         if not data:
             raise FJError("Failed to login to FileJump API: empty response")
-        self.token = data.get("user", {}).get("access_token", None)
+        self.set_token(data.get("user", {}).get("access_token", None))
         return data
 
     def get_data(self, query):
