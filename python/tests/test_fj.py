@@ -52,29 +52,32 @@ class PercentCallback(IProgressCallback):
 
 
 def test_fj_write():
-    FileJumpApi.set_url("filejump_server")
+    FileJumpApi.set_url("https://eu.filejump.com/api/v1/")
+    FileJumpApi.set_token("62|liYE7ZABcnuw0zQugkYqTrv97R41NXWSir2j2MeC0d78094c")
     file_name = __file__
     relative_name = __name__
     api = FileJumpApi()
     try:
-        api.login("user", "password")
-        files = api.read_directory_tree()
+        # api.login("user", "password")
+        # files = api.read_directory_tree()
+        #
+        # fr = LocalFileReader(file_name)
+        # pc = PercentCallback()
+        # res = api.post_file(file_name, fr, relative_name, pc)
+        # print(res)
 
-        fr = LocalFileReader(file_name)
-        pc = PercentCallback()
-        res = api.post_file(file_name, fr, relative_name, pc)
-        print(res)
+        # entry_id = res["fileEntry"]["id"]
+        # parent_id = res["fileEntry"]["parent_id"]
+        # file_info = api.get_file_info(parent_id, entry_id)
+        # desc = f"Uploaded by test on {datetime.datetime.now().isoformat()}"
+        # api.set_description(entry_id, desc)
+        # file_info2 = api.get_file_info(parent_id, entry_id)
 
-        entry_id = res["fileEntry"]["id"]
-        parent_id = res["fileEntry"]["parent_id"]
-        file_info = api.get_file_info(parent_id, entry_id)
-        desc = f"Uploaded by test on {datetime.datetime.now().isoformat()}"
-        api.set_description(entry_id, desc)
-        file_info2 = api.get_file_info(parent_id, entry_id)
-
+        entry_id = "976687"
         file = api.get_file(entry_id)
         print(file)
 
+        entry_id = "976687"
         api.delete_files([entry_id])
         files = api.read_directory_tree()
         print(files)
