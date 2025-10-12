@@ -450,7 +450,7 @@ int main(int argc, char* argv[])
         usage =  "FileJumpFS can be used to mount the filejump cloud storage to disk on your windows.\n";
         usage += "Using the mounted drive letter, you can see the cloud storage content, copy files to or from cloud storage\n";
         usage += "The following FileJump servers can be used: https://app.filejump.com/, https://drive.filejump.com/, https://eu.filejump.com/ \n";
-        usage += "parameters are:\n't--server: URL of server to use;\n\t--token: security token to access to FileJump media;\n";
+        usage += "parameters are:\n\t--server: URL of server to use;\n\t--token: security token to access to FileJump media;\n";
         usage += "\t--user-email and --password to authenticate with user name and password (instead of token);\n";
         usage += "It is also possible to authenticate with environment variables FILEJUMP_BASE_URL and FILEJUMP_AUTH_TOKEN - just set variables instead of command line;\n";
         usage += "--verbose to get more information for debugging\n";
