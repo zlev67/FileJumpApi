@@ -219,6 +219,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C89E97C6513B4EBEA7335F351C22ED0A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CBB0B39FE4C914D64B4882BFC48171FF"
         "OwnerKey" = "8:_8D73C205CB0F4FD991EA2A14CBD8F757"
         "MsmSig" = "8:_UNDEFINED"
@@ -268,13 +274,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F318CCF50E16C5593528E395EE5DEFA3"
+        "OwnerKey" = "8:_C6CD6E756A73460AA9346B7F808CFEB6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C6CD6E756A73460AA9346B7F808CFEB6"
+        "OwnerKey" = "8:_F318CCF50E16C5593528E395EE5DEFA3"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -883,6 +889,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C89E97C6513B4EBEA7335F351C22ED0A"
+            {
+            "SourcePath" = "8:..\\readme.md"
+            "TargetName" = "8:readme.md"
+            "Tag" = "8:"
+            "Folder" = "8:_C2E0C272AAA54CBD9CA86A3039E54305"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CBB0B39FE4C914D64B4882BFC48171FF"
             {
             "SourcePath" = "8:api-ms-win-crt-runtime-l1-1-0.dll"
@@ -1071,7 +1097,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:FileJumpFS"
         "ProductCode" = "8:{BECD0780-157A-4F6A-A614-BD72C52FFF19}"
-        "PackageCode" = "8:{9DCEE9FC-1EAF-4D69-9571-86A56BC297CC}"
+        "PackageCode" = "8:{394DC7FC-401B-4779-80A6-F5134BEBD911}"
         "UpgradeCode" = "8:{4388C088-9EC8-47CF-82DC-73CF3040E7AC}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -1590,6 +1616,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_45FCD39A257D49F584FCA77E1322ED48"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C2E0C272AAA54CBD9CA86A3039E54305"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Documentation"
+            "OutputProjectGuid" = "8:{208D066E-0E8C-4AA5-A6E3-F8414885BB4C}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8D73C205CB0F4FD991EA2A14CBD8F757"
             {
             "SourcePath" = "8:..\\x64\\Release\\FileJump.dll"
