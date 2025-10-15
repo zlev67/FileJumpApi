@@ -415,6 +415,9 @@ int main(int argc, char* argv[])
     std::string user, password;
     char const* baseUrlEnv = std::getenv("FILEJUMP_BASE_URL");
     char const* authEnv = std::getenv("FILEJUMP_AUTH_TOKEN");
+    int fuse_argc = 0;
+    char** fuse_argv = new char *[argc+1];  // +1 for safety
+
     if (baseUrlEnv)
     {
         std::string t = baseUrlEnv;
@@ -427,23 +430,36 @@ int main(int argc, char* argv[])
         auth = std::wstring(t.begin(), t.end()).c_str();
     }
 
-    if (argc > 1)
-        for (int arg = 1; arg < argc; arg++)
+    for (int arg = 0; arg < argc; arg++)
+    {
+        if (std::string(argv[arg]) == "--verbose")
         {
-            if (std::string(argv[arg]) == "--verbose")
-            {
-                verbose = true;
-                FJAccess::set_verbose(verbose);
-            }
-            if (std::string(argv[arg]) == "--server")
-                baseUrl = CUrlTools::Utf8ToWide(argv[arg + 1]);
-            if (std::string(argv[arg]) == "--token")
-                auth = CUrlTools::Utf8ToWide(argv[arg + 1]);
-            if (std::string(argv[arg]) == "--user-email")
-                user = argv[arg + 1];
-            if (std::string(argv[arg]) == "--password")
-                password = argv[arg + 1];
+            verbose = true;
+            FJAccess::set_verbose(verbose);
         }
+        else if (std::string(argv[arg]) == "--server")
+        {
+            baseUrl = CUrlTools::Utf8ToWide(argv[arg + 1]);
+            arg++;
+        }
+        else if (std::string(argv[arg]) == "--token")
+        {
+            auth = CUrlTools::Utf8ToWide(argv[arg + 1]);
+            arg++;
+        }
+        else if (std::string(argv[arg]) == "--user-email")
+        {
+            user = argv[arg + 1];
+            arg++;
+        }
+        else if (std::string(argv[arg]) == "--password")
+        {
+            password = argv[arg + 1];
+            arg++;
+        }
+        else
+            fuse_argv[fuse_argc++] = argv[arg];
+    }
     if (baseUrl.empty() || (auth.empty() && password.empty()))
     {
         std::string usage;
@@ -459,8 +475,8 @@ int main(int argc, char* argv[])
     }
     if (!user.empty() and !password.empty())
         FJAccess::configure_with_password(baseUrl, user, password);
-
-    FJAccess::configure(baseUrl, auth);
+    else if (!auth.empty())
+        FJAccess::configure(baseUrl, auth);
 
     // prepare temp dir
     char tmpPath[MAX_PATH];
@@ -483,5 +499,7 @@ int main(int argc, char* argv[])
     fj_oper.rmdir = fj_rmdir;
     fj_oper.release = fj_release;
 
-    return fuse_main(argc, argv, &fj_oper, NULL);
+    int result = fuse_main(fuse_argc, fuse_argv, &fj_oper, NULL);
+    delete[] fuse_argv;
+    return result;
 }

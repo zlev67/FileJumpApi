@@ -123,7 +123,8 @@ public:
 	static void configure(const std::wstring& base_url, const std::wstring& bearer_token)
 	{
 		m_baseUrl = base_url;
-		m_bearerToken = bearer_token;
+		if (!bearer_token.empty())
+			m_bearerToken = bearer_token;
 	}
 	virtual ~FJAccess() = default;
 

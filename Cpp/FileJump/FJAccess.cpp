@@ -82,10 +82,10 @@ bool FILEJUMP_API FJAccess::configure_with_password(const std::wstring& baseUrl,
     class LoginFileTools
     {
     public:
-        static std::wstring get_url(std::wstring const& base_url)
+        static std::wstring get_url(std::wstring const& _base_url)
         {
             std::map<std::wstring, std::wstring> params = {};
-            return CUrlTools::buildUrlWithParams(base_url + std::wstring(L"api/v1/auth/login"), params);
+            return CUrlTools::buildUrlWithParams(_base_url + std::wstring(L"api/v1/auth/login"), params);
         };
         static std::wstring get_header()
         {
@@ -105,15 +105,20 @@ bool FILEJUMP_API FJAccess::configure_with_password(const std::wstring& baseUrl,
             return out;
         }
     };
+    m_baseUrl = baseUrl;
+    if (m_baseUrl[m_baseUrl.length() - 1] != L'/')
+        m_baseUrl += L"/";
+
     std::string postResponse = HttpPost(LoginFileTools::get_url(m_baseUrl), LoginFileTools::get_header(), LoginFileTools::getData(user, password));
-    if (!postResponse.empty())
+    if (postResponse.empty())
         return false;
     json j = json::parse(postResponse);
     if (j.contains("user"))
     {
         auto j1 = j["user"];
         auto token = j1["access_token"];
-        m_bearerToken = CUrlTools::Utf8ToWide(token);
+        std::wstring bearerToken = CUrlTools::Utf8ToWide(token);
+        configure(m_baseUrl, bearerToken);
         return true;
     }
     return false;
@@ -145,6 +150,11 @@ std::list<FileInfo> FILEJUMP_API FJAccess::get_files(int path_id)
     {
         auto response = HttpGet(GetFileTools::get_url(m_baseUrl, path_id, next_page), 
                                 GetFileTools::get_header(m_bearerToken));
+        if (response.empty())
+        {
+            int error = GetLastError();
+            return res;
+        }
         json j = json::parse(response);
 
         // Access next_page (could be null)
