@@ -58,7 +58,13 @@ struct FileInfo
 	FILETIME updated_at;
 };
 
+/**
 
+    @class   DirectoryLru
+    @brief   Class holds the LRU list of directories: name of directory -> list of files;
+    @details ~
+
+**/
 class DirectoryLru
 {
 private:
@@ -93,7 +99,13 @@ public:
 	}
 };
 
+/**
 
+    @class   FJAccess
+    @brief   Class performs accesses to FileJump
+    @details ~
+
+**/
 class FILEJUMP_API FJAccess
 {
 private:
@@ -129,7 +141,7 @@ public:
 	virtual ~FJAccess() = default;
 
 	std::list <FileInfo> getDirectoryContent(int directoryID);
-	int getDirectoryID(std::string directoryPath);
+	int getDirectoryID(std::string const& directoryPath);
 	const struct FileInfo* findFile(const std::string& path);
 	bool copyFile(int id, const std::string& dest);
 	bool deleteFile(int parent_id, int id);

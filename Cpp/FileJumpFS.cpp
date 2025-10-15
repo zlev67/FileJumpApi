@@ -142,7 +142,8 @@ static int fj_readdir(const char* path, void* buf, fuse_fill_dir_t filler,
     //std::string p = norm(path);
 
     FJAccess* access = FJAccess::getInstance();
-    auto entries = access->getDirectoryContent(access->getDirectoryID(path));
+    int dir_id = access->getDirectoryID(path);
+    auto entries = access->getDirectoryContent(dir_id);
     // list unique names (FileJump may allow duplicates)
     for (auto& e : entries) {
         struct fuse_stat st = { 0 };

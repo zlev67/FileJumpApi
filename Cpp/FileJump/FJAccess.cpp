@@ -124,7 +124,11 @@ bool FILEJUMP_API FJAccess::configure_with_password(const std::wstring& baseUrl,
     return false;
 }
 
-
+/**
+ * @brief Function retrieves list of files from FileJump
+ * @param path_id integer ID of filejump directory
+ * @return list of files
+ */
 std::list<FileInfo> FILEJUMP_API FJAccess::get_files(int path_id)
 {
     class GetFileTools
@@ -185,6 +189,8 @@ std::string FILEJUMP_API FJAccess::path2string(std::vector<int> path)
     for (auto s : path)
     {
         out += directoryTranslate[s];
+        if (out[out.length() - 1] != '/')
+            out += "/";
     }
     return out;
 }
@@ -408,11 +414,16 @@ std::list<FileInfo> FILEJUMP_API FJAccess::getDirectoryContent(int directoryID)
     return out;
 }
 
-int FILEJUMP_API FJAccess::getDirectoryID(std::string directoryPath)
+int FILEJUMP_API FJAccess::getDirectoryID(std::string const &directoryPath)
 {
     std::lock_guard<std::mutex> guard(m_cache_mutex);
     if (directoryCache.empty())
         fillDirectoryCache();
-    return directoryCache[directoryPath];
+
+    std::string p = directoryPath;
+    if (p.length()==0 || p[p.length() - 1] != '/')
+        p += "/";
+    int found_id = directoryCache[p];
+    return found_id;
 }
 
